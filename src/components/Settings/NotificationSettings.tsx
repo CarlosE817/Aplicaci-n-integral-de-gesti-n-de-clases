@@ -15,7 +15,7 @@ const NotificationSettingsComponent: React.FC<NotificationSettingsProps> = ({
   onRequestPermission,
   permission,
 }) => {
-  const handleToggle = (key: keyof NotificationSettings, value: any) => {
+  const handleToggle = (key: keyof NotificationSettings, value: boolean | number) => {
     onUpdate({ ...settings, [key]: value });
   };
 

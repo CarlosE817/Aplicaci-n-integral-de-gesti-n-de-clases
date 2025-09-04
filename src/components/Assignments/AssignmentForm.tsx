@@ -9,18 +9,27 @@ interface AssignmentFormProps {
   onCancel: () => void;
 }
 
+interface FormDataState {
+  course_id: string;
+  title: string;
+  description: string;
+  due_date: string;
+  priority: 'low' | 'medium' | 'high';
+  completed: boolean;
+}
+
 const AssignmentForm: React.FC<AssignmentFormProps> = ({
   courses,
   initialData,
   onSubmit,
   onCancel,
 }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
     course_id: '',
     title: '',
     description: '',
     due_date: '',
-    priority: 'medium' as 'low' | 'medium' | 'high',
+    priority: 'medium',
     completed: false,
   });
 
@@ -133,7 +142,9 @@ const AssignmentForm: React.FC<AssignmentFormProps> = ({
                 <Flag className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <select
                   value={formData.priority}
-                  onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, priority: e.target.value as 'low' | 'medium' | 'high' })
+                  }
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                 >
                   <option value="low">Low</option>
