@@ -1,0 +1,17 @@
+# This file configures the build and deployment settings for Netlify.
+# It ensures that the Vite application is correctly built before being deployed.
+
+[build]
+  # This command is run to build the site.
+  command = "npm run build"
+
+  # This is the directory that contains the built site files.
+  publish = "dist"
+
+# This rule is for single-page applications (SPAs). It ensures that any
+# request that doesn't match a file is redirected to index.html, allowing
+# client-side routing to handle it.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
