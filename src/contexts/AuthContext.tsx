@@ -24,13 +24,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const mockUser: User = {
-    id: '1',
-    email: 'testuser@example.com',
-    name: 'Test User',
-    created_at: new Date().toISOString(),
-  };
-  const [user, setUser] = useState<User | null>(mockUser);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
