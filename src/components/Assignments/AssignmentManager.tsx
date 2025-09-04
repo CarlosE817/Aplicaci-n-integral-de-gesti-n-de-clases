@@ -12,6 +12,8 @@ interface AssignmentManagerProps {
   onToggleComplete: (id: string) => void;
 }
 
+type FilterType = 'all' | 'pending' | 'completed';
+
 const AssignmentManager: React.FC<AssignmentManagerProps> = ({
   assignments,
   courses,
@@ -22,7 +24,7 @@ const AssignmentManager: React.FC<AssignmentManagerProps> = ({
 }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
-  const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
+  const [filter, setFilter] = useState<FilterType>('all');
 
   const filteredAssignments = assignments.filter(assignment => {
     if (filter === 'pending') return !assignment.completed;
@@ -101,7 +103,7 @@ const AssignmentManager: React.FC<AssignmentManagerProps> = ({
         ].map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setFilter(tab.key as any)}
+            onClick={() => setFilter(tab.key as FilterType)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === tab.key
                 ? 'bg-indigo-600 text-white shadow-sm'
