@@ -5,6 +5,7 @@ import { useNotifications } from './hooks/useNotifications';
 import LoginForm from './components/Auth/LoginForm';
 import SignupForm from './components/Auth/SignupForm';
 import Sidebar from './components/Layout/Sidebar';
+import MobileMenu from './components/Layout/MobileMenu';
 import DashboardOverview from './components/Dashboard/DashboardOverview';
 import ScheduleManager from './components/Schedule/ScheduleManager';
 import CalendarView from './components/Calendar/CalendarView';
@@ -17,6 +18,7 @@ import { mockCourses, mockSchedules, mockAssignments, generateCalendarEvents } f
 function AppContent() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [courses, setCourses] = useLocalStorage<Course[]>('courses', mockCourses);
   const [schedules, setSchedules] = useLocalStorage<ClassSchedule[]>('schedules', mockSchedules);
   const [assignments, setAssignments] = useLocalStorage<Assignment[]>('assignments', mockAssignments);
@@ -187,10 +189,18 @@ function AppContent() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 overflow-auto">
-        <div className="p-8">
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
+      <MobileMenu isOpen={mobileMenuOpen} onToggle={() => setMobileMenuOpen(!mobileMenuOpen)} />
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          setMobileMenuOpen(false);
+        }} 
+        isOpen={mobileMenuOpen}
+      />
+      <main className="flex-1 overflow-auto lg:ml-0">
+        <div className="p-4 sm:p-6 lg:p-8">
           {renderContent()}
         </div>
       </main>

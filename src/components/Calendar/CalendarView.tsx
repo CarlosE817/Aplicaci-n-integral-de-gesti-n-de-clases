@@ -89,24 +89,24 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center">
             <CalendarIcon className="mr-3 text-indigo-600" size={32} />
             Calendar
           </h1>
-          <p className="text-gray-600 mt-1">View your classes and assignments</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">View your classes and assignments</p>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           {/* View Toggle */}
-          <div className="bg-gray-100 rounded-lg p-1 flex">
+          <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-1 flex">
             {(['month', 'week', 'day'] as const).map((viewType) => (
               <button
                 key={viewType}
                 onClick={() => setView(viewType)}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                className={`px-2 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   view === viewType
-                    ? 'bg-white text-indigo-600 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white dark:bg-gray-600 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                 }`}
               >
                 {viewType.charAt(0).toUpperCase() + viewType.slice(1)}
@@ -117,27 +117,27 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
       </div>
 
       {/* Month Navigation */}
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 sm:p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
             {monthNames[currentMonth]} {currentYear}
           </h2>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             <button
               onClick={() => navigateMonth('prev')}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-gray-700 dark:text-gray-300"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => setCurrentDate(new Date())}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium"
+              className="px-2 sm:px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-xs sm:text-sm font-medium"
             >
               Today
             </button>
             <button
               onClick={() => navigateMonth('next')}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors text-gray-700 dark:text-gray-300"
             >
               <ChevronRight size={20} />
             </button>
@@ -145,14 +145,15 @@ const CalendarView: React.FC<CalendarViewProps> = ({ events }) => {
         </div>
 
         {/* Calendar Grid */}
-        <div className="grid grid-cols-7 gap-0 border border-gray-200 rounded-lg overflow-hidden">
+        <div className="grid grid-cols-7 gap-0 border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
           {/* Day headers */}
           {daysOfWeek.map((day) => (
             <div
               key={day}
-              className="bg-gray-50 p-3 text-center text-sm font-semibold text-gray-700 border-b border-gray-200"
+              className="bg-gray-50 dark:bg-gray-700 p-2 sm:p-3 text-center text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-600"
             >
-              {day}
+              <span className="hidden sm:inline">{day}</span>
+              <span className="sm:hidden">{day.slice(0, 3)}</span>
             </div>
           ))}
           
